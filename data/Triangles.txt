@@ -1,0 +1,9 @@
+Triangle{a=Point{x=-59.0, y=-35.0}, b=Point{x=-6.0, y=35.0}, c=Point{x=59.0, y=-18.0}}                                  //Usual
+Triangle{a=Point{x=-5.0, y=-5.0}, b=Point{x=0.0, y=0.0}, c=Point{x=6.0, y=6.0}}                                         //On one straight line
+Triangle{a=Point{x=-17.355, y=35.355}, b=Point{x=18.0, y=0.0}, c=Point{x=-17.355, y=-35.355}}                           //Rectangular
+Triangle{a=Point{x=33.0, y=4z5.0}, b=Point{x=-76.0, y=-85.0}, c=Point{x=67.0, y=-6.0}}                                  //Invalid character
+Triangle{a=Point{x=-40.0, y=40.0}, b=Point{x=-116.0, y=40.0}, c=Point{x=-78.0, y=121.0}}                                //Isosceles
+Triangle{a=Point{x=33.0, y=45.0}, b=Point{x=-76.0, y=-85.0}, c=Point{x=67.0, y=}}                                       //One value lost
+Triangle{a=Point{x=16.0, y=-19.0}, b=Point{x=85.0, y=-29.0}, c=Point{x=120.0, y=-75.0}}                                 //Obtuse
+Quadrilateral{a=Point{x=33.0, y=45.0}, b=Point{x=-76.0, y=-85.0}, c=Point{x=67.0, y=-6.0}, d=Point{x=15.0, y=96.0}}     //Extra values
+Triangle{a=Point{x=-10.0, y=-20.0}, b=Point{x=40.0, y=66.603}, c=Point{x=90.0, y=-20.0}}                                //Regular
