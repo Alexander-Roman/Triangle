@@ -2,11 +2,18 @@ package com.epam.triangle.logic;
 
 import com.epam.triangle.entity.Point;
 import com.epam.triangle.entity.Triangle;
+import com.epam.triangle.entity.TriangleType;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class TriangleCalculator {
 
     private static final double RIGHT_ANGLE = 90.0;
     private static final double THRESHOLD = 0.01;
+    private static final int SIDE_AB_INDEX = 0;
+    private static final int SIDE_BC_INDEX = 1;
+    private static final int SIDE_CA_INDEX = 2;
 
     public double getPerimeter(Triangle triangle) {
         Point topA = triangle.getA();
@@ -17,55 +24,59 @@ public class TriangleCalculator {
 
     public double getArea(Triangle triangle) {
         double halfPerimeter = getPerimeter(triangle) / 2;
-        double[] sides = getAllSides(triangle);
-
-        return Math.sqrt(halfPerimeter * (halfPerimeter - sides[0]) * (halfPerimeter - sides[1]) * (halfPerimeter - sides[2]));
+        List<Double> sides = getAllSides(triangle);
+        double sideAB = sides.get(SIDE_AB_INDEX);
+        double sideBC = sides.get(SIDE_BC_INDEX);
+        double sideCA = sides.get(SIDE_CA_INDEX);
+        return Math.sqrt(halfPerimeter * (halfPerimeter - sideAB) * (halfPerimeter - sideBC) * (halfPerimeter - sideCA));
     }
 
     public boolean isRectangular(Triangle triangle) {
-        double[] angles = getAllAngles(triangle);
-        for (Double angle : angles) {
-            if (Math.abs(angle - RIGHT_ANGLE) < THRESHOLD) {
-                return true;
-            }
-        }
-        return false;
+        double maxAngle = maxAngle(triangle);
+        return Math.abs(maxAngle - RIGHT_ANGLE) < THRESHOLD;
     }
 
     public boolean isAcuteAngled(Triangle triangle) {
-        double[] angles = getAllAngles(triangle);
-        for (Double angle : angles) {
-            if (angle > RIGHT_ANGLE || Math.abs(angle - RIGHT_ANGLE) < THRESHOLD) {
-                return false;
-            }
-        }
-        return true;
+        double maxAngle = maxAngle(triangle);
+        return maxAngle <= RIGHT_ANGLE - THRESHOLD;
     }
 
     public boolean isObtuse(Triangle triangle) {
-        double[] angles = getAllAngles(triangle);
-        for (Double angle : angles) {
-            if (angle > RIGHT_ANGLE && Math.abs(angle - RIGHT_ANGLE) >= THRESHOLD) {
-                return true;
-            }
-        }
-        return false;
+        double maxAngle = maxAngle(triangle);
+        return maxAngle >= RIGHT_ANGLE + THRESHOLD;
     }
 
     public boolean isIsosceles(Triangle triangle) {
-        double[] sides = getAllSides(triangle);
-        return Math.abs(sides[0] - sides[1]) < THRESHOLD ||
-                Math.abs(sides[1] - sides[2]) < THRESHOLD ||
-                Math.abs(sides[2] - sides[0]) < THRESHOLD;
+        List<Double> sides = getAllSides(triangle);
+        double sideAB = sides.get(SIDE_AB_INDEX);
+        double sideBC = sides.get(SIDE_BC_INDEX);
+        double sideCA = sides.get(SIDE_CA_INDEX);
+        return Math.abs(sideAB - sideBC) < THRESHOLD ||
+                Math.abs(sideBC - sideCA) < THRESHOLD ||
+                Math.abs(sideCA - sideAB) < THRESHOLD;
     }
 
     public boolean isRegular(Triangle triangle) {
-        double[] sides = getAllSides(triangle);
-        return Math.abs(sides[0] - sides[1]) < THRESHOLD &&
-                Math.abs(sides[1] - sides[2]) < THRESHOLD;
+        List<Double> sides = getAllSides(triangle);
+        double sideAB = sides.get(SIDE_AB_INDEX);
+        double sideBC = sides.get(SIDE_BC_INDEX);
+        double sideCA = sides.get(SIDE_CA_INDEX);
+        return Math.abs(sideAB - sideBC) < THRESHOLD &&
+                Math.abs(sideBC - sideCA) < THRESHOLD;
     }
 
-    private double[] getAllSides(Triangle triangle) {
+    public double maxAngle(Triangle triangle) {
+        List<Double> angles = getAllAngles(triangle);
+        double maxAngle = 0;
+        for (double angle : angles) {
+            if (maxAngle < angle) {
+                maxAngle = angle;
+            }
+        }
+        return maxAngle;
+    }
+
+    public List<Double> getAllSides(Triangle triangle) {
         Point a = triangle.getA();
         Point b = triangle.getB();
         Point c = triangle.getC();
@@ -74,10 +85,10 @@ public class TriangleCalculator {
         double sideBC = getSide(b, c);
         double sideCA = getSide(c, a);
 
-        return new double[]{sideAB, sideBC, sideCA};
+        return Arrays.asList(sideAB, sideBC, sideCA);
     }
 
-    private double[] getAllAngles(Triangle triangle) {
+    public List<Double> getAllAngles(Triangle triangle) {
         Point a = triangle.getA();
         Point b = triangle.getB();
         Point c = triangle.getC();
@@ -86,7 +97,25 @@ public class TriangleCalculator {
         double angleB = getAngleDegrees(a, b, c);
         double angleC = getAngleDegrees(b, c, a);
 
-        return new double[]{angleA, angleB, angleC};
+        return Arrays.asList(angleA, angleB, angleC);
+    }
+
+    public List<Point> getAllTops(Triangle triangle) {
+        Point a = triangle.getA();
+        Point b = triangle.getB();
+        Point c = triangle.getC();
+
+        return Arrays.asList(a, b, c);
+    }
+
+    public TriangleType getType(Triangle triangle) {
+        if (isRectangular(triangle)) {
+            return TriangleType.RECTANGULAR;
+        } else if (isAcuteAngled(triangle)) {
+            return TriangleType.ACUTE_ANGLED;
+        } else {
+            return TriangleType.OBTUSE;
+        }
     }
 
     private double getSide(Point from, Point to) {

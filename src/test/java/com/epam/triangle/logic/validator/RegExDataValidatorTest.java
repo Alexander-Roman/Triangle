@@ -12,7 +12,7 @@ public class RegExDataValidatorTest {
     private final RegExDataValidator validator = new RegExDataValidator();
 
     @Test
-    public void isValidTestShouldReturnTrueWhenThereAreSixDoubleValuesInString() {
+    public void testIsValidShouldReturnTrueWhenThereAreSixDoubleValuesInString() {
         //given
         //when
         boolean actual = validator.isValid(VALID_STRING);
@@ -21,7 +21,7 @@ public class RegExDataValidatorTest {
     }
 
     @Test
-    public void isValidTestShouldReturnFalseWhenDataStringIsCorrupted() {
+    public void testIsValidShouldReturnFalseWhenDataStringIsCorrupted() {
         //given
         //when
         boolean actual = validator.isValid(INVALID_VALUE_STRING);
@@ -30,7 +30,7 @@ public class RegExDataValidatorTest {
     }
 
     @Test
-    public void isValidTestShouldReturnFalseWhenLessThanSixDoubleValuesInString() {
+    public void testIsValidShouldReturnFalseWhenLessThanSixDoubleValuesInString() {
         //given
         //when
         boolean actual = validator.isValid(NOT_ENOUGH_STRING);
@@ -39,14 +39,13 @@ public class RegExDataValidatorTest {
     }
 
     @Test
-    public void isValidTestShouldReturnFalseWhenExtraValuesInString() {
+    public void testIsValidShouldReturnFalseWhenExtraValuesInString() {
         //given
         //when
         boolean actual = validator.isValid(EXTRA_VALUE_STRING);
         //then
         Assert.assertFalse(actual);
     }
-
 
 
 }

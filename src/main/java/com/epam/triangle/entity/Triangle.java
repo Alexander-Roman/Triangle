@@ -1,38 +1,39 @@
 package com.epam.triangle.entity;
 
-import com.epam.triangle.exception.TriangleException;
-import com.epam.triangle.logic.validator.TriangleValidator;
-
 public class Triangle {
 
-    private final Point a;
-    private final Point b;
-    private final Point c;
+    private Point a;
+    private Point b;
+    private Point c;
 
-    private Triangle(Point a, Point b, Point c) {
+    public Triangle(Point a, Point b, Point c) {
         this.a = a;
         this.b = b;
         this.c = c;
-    }
-
-    public static Triangle of(Point a, Point b, Point c) throws TriangleException {
-        TriangleValidator validator = new TriangleValidator();
-        if (validator.isOneStraightLine(a, b, c)) {
-            throw new TriangleException("Not a triangle!");
-        }
-        return new Triangle(a, b, c);
     }
 
     public Point getA() {
         return a;
     }
 
+    public void setA(Point a) {
+        this.a = a;
+    }
+
     public Point getB() {
         return b;
     }
 
+    public void setB(Point b) {
+        this.b = b;
+    }
+
     public Point getC() {
         return c;
+    }
+
+    public void setC(Point c) {
+        this.c = c;
     }
 
     @Override

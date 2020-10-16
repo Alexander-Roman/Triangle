@@ -2,16 +2,17 @@ package com.epam.triangle.logic;
 
 import com.epam.triangle.entity.Point;
 import com.epam.triangle.entity.Triangle;
-import com.epam.triangle.exception.TriangleException;
 import com.epam.triangle.logic.parser.DataParser;
 import com.epam.triangle.logic.parser.RegExDataParser;
 import com.epam.triangle.logic.validator.DataValidator;
 import com.epam.triangle.logic.validator.RegExDataValidator;
+import com.epam.triangle.logic.validator.TriangleValidator;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TriangleCreatorTest {
@@ -26,82 +27,77 @@ public class TriangleCreatorTest {
     private Triangle correct;
 
     @BeforeClass
-    public void setUp() throws TriangleException {
+    public void setUp() {
         DataParser parser = new RegExDataParser();
-        DataValidator validator = new RegExDataValidator();
-        creator = new TriangleCreator(parser, validator);
+        DataValidator dataValidator = new RegExDataValidator();
+        TriangleValidator triangleValidator = new TriangleValidator();
+        creator = new TriangleCreator(parser, dataValidator, triangleValidator);
 
         Point a = new Point(-59.0, -35.0);
         Point b = new Point(-6.0, 35.0);
         Point c = new Point(59.0, -18.0);
-        correct = Triangle.of(a, b, c);
-    }
-
-    @AfterClass
-    public void tearDown() {
-        creator = null;
-        correct = null;
+        correct = new Triangle(a, b, c);
     }
 
     @Test
-    public void createTestShouldCreateTriangleWhenDataLineIsCorrect() {
+    public void testCreateShouldCreateTriangleWhenDataLineIsCorrect() {
         //given
-        List<String> data = List.of(CORRECT_TRIANGLE, CORRECT_TRIANGLE);
+        List<String> data = Arrays.asList(CORRECT_TRIANGLE, CORRECT_TRIANGLE);
         //when
         List<Triangle> actual = creator.create(data);
         //then
-        List<Triangle> expected = List.of(correct, correct);
+        List<Triangle> expected = Arrays.asList(correct, correct);
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void createTestShouldNotCreateTriangleWhenDataLineIsCorrupted() {
+    public void testCreateShouldNotCreateTriangleWhenDataLineIsCorrupted() {
         //given
-        List<String> data = List.of(VALUE_CORRUPTED, VALUE_LOST);
+        List<String> data = Arrays.asList(VALUE_CORRUPTED, VALUE_LOST);
         //when
         List<Triangle> actual = creator.create(data);
         //then
-        List<Triangle> expected = List.of();
+        List<Triangle> expected = Collections.emptyList();
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void createTestShouldNotCreateTriangleWhenDataLineHasExtraValues() {
+    public void testCreateShouldNotCreateTriangleWhenDataLineHasExtraValues() {
         //given
-        List<String> data = List.of(EXTRA_VALUES);
+        List<String> data = Collections.singletonList(EXTRA_VALUES);
         //when
         List<Triangle> actual = creator.create(data);
         //then
-        List<Triangle> expected = List.of();
+        List<Triangle> expected = Collections.emptyList();
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void createTestShouldNotCreateNotATriangleObjects() {
+    public void testCreateShouldNotCreateNotATriangleObjects() {
         //given
-        List<String> data = List.of(NOT_A_TRIANGLE);
+        List<String> data = Collections.singletonList(NOT_A_TRIANGLE);
         //when
         List<Triangle> actual = creator.create(data);
         //then
-        List<Triangle> expected = List.of();
+        List<Triangle> expected = Collections.emptyList();
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void createTestShouldReturnEmptyListIfDataListIsEmpty() {
+    public void testCreateShouldReturnEmptyListIfDataListIsEmpty() {
         //given
-        List<String> data = List.of();
+        List<String> data = Collections.emptyList();
         //when
         List<Triangle> actual = creator.create(data);
         //then
-        List<Triangle> expected = List.of();
+        List<Triangle> expected = Collections.emptyList();
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void createTestShouldReturnNotNull() {
+    public void testCreateShouldReturnNotNull() {
         //given
-        List<String> data = List.of();
+        List<String> data = Collections.emptyList();
         //when
         List<Triangle> actual = creator.create(data);
         //then

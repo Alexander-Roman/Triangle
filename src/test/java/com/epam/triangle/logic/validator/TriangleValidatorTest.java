@@ -9,7 +9,7 @@ public class TriangleValidatorTest {
     private final TriangleValidator validator = new TriangleValidator();
 
     @Test
-    public void isOneStraightLineTestShouldReturnTrueWhenPointsLieOnOneStraightLine() {
+    public void testIsOneStraightLineShouldReturnTrueWhenPointsLieOnOneStraightLine() {
         //given
         Point a = new Point(-5.0, -5.0);
         Point b = new Point(0.0, 0.0);
@@ -21,7 +21,7 @@ public class TriangleValidatorTest {
     }
 
     @Test
-    public void isOneStraightLineTestShouldReturnFalseWhenPointsDoNotLieOnOneStraightLine() {
+    public void testIsOneStraightLineShouldReturnFalseWhenPointsDoNotLieOnOneStraightLine() {
         //given
         Point a = new Point(1.0, 2.0);
         Point b = new Point(0.0, 0.0);

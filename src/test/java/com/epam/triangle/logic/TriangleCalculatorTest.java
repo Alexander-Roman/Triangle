@@ -2,9 +2,7 @@ package com.epam.triangle.logic;
 
 import com.epam.triangle.entity.Point;
 import com.epam.triangle.entity.Triangle;
-import com.epam.triangle.exception.TriangleException;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -17,43 +15,35 @@ public class TriangleCalculatorTest {
     private Triangle isosceles;
 
     @BeforeClass
-    public void setUp() throws TriangleException {
+    public void setUp() {
         {
             Point a = new Point(-10.0, -20.0);
             Point b = new Point(40.0, 66.603);
             Point c = new Point(90.0, -20.0);
-            regular = Triangle.of(a, b, c);
+            regular = new Triangle(a, b, c);
         }
         {
             Point a = new Point(-17.355, 35.355);
             Point b = new Point(18.0, 0.0);
             Point c = new Point(-17.355, -35.355);
-            rectangular = Triangle.of(a, b, c);
+            rectangular = new Triangle(a, b, c);
         }
         {
             Point a = new Point(16.0, -19.0);
             Point b = new Point(85.0, -29.0);
             Point c = new Point(120.0, -75.0);
-            obtuse = Triangle.of(a, b, c);
+            obtuse = new Triangle(a, b, c);
         }
         {
             Point a = new Point(37.397, 62.418);
             Point b = new Point(53.56, -73.361);
             Point c = new Point(-95.835, 31.659);
-            isosceles = Triangle.of(a, b, c);
+            isosceles = new Triangle(a, b, c);
         }
     }
 
-    @AfterClass
-    public void tearDown() {
-        regular = null;
-        rectangular = null;
-        obtuse = null;
-        isosceles = null;
-    }
-
     @Test
-    public void getPerimeterTestShouldReturnCorrectPerimeterValue() {
+    public void testGetPerimeterShouldReturnCorrectPerimeterValue() {
         //given
         //when
         double actual = calculator.getPerimeter(regular);
@@ -63,7 +53,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void getAreaTestShouldReturnCorrectAreaValue() {
+    public void testGetAreaShouldReturnCorrectAreaValue() {
         //given
         //when
         double actual = calculator.getArea(rectangular);
@@ -73,7 +63,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isRectangularTestShouldReturnTrueWhenRectangular() {
+    public void testIsRectangularShouldReturnTrueWhenRectangular() {
         //given
         //when
         boolean actual = calculator.isRectangular(rectangular);
@@ -82,7 +72,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isRectangularTestShouldReturnFalseWhenNotRectangular() {
+    public void testIsRectangularShouldReturnFalseWhenNotRectangular() {
         //given
         //when
         boolean actual = calculator.isRectangular(regular);
@@ -91,7 +81,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isAcuteAngledTestShouldReturnTrueWhenAcuteAngled() {
+    public void testIsAcuteAngledShouldReturnTrueWhenAcuteAngled() {
         //given
         //when
         boolean actual = calculator.isAcuteAngled(regular);
@@ -100,7 +90,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isAcuteAngledTestShouldReturnFalseWhenNotAcuteAngled() {
+    public void testIsAcuteAngledShouldReturnFalseWhenNotAcuteAngled() {
         //given
         //when
         boolean actual = calculator.isAcuteAngled(rectangular);
@@ -109,7 +99,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isObtuseTestShouldReturnTrueWhenObtuse() {
+    public void testIsObtuseShouldReturnTrueWhenObtuse() {
         //given
         //when
         boolean actual = calculator.isObtuse(obtuse);
@@ -118,7 +108,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isObtuseTestShouldReturnFalseWhenNotObtuse() {
+    public void testIsObtuseShouldReturnFalseWhenNotObtuse() {
         //given
         //when
         boolean actual = calculator.isObtuse(rectangular);
@@ -127,7 +117,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isIsoscelesTestShouldReturnTrueWhenIsosceles() {
+    public void testIsIsoscelesShouldReturnTrueWhenIsosceles() {
         //given
         //when
         boolean actual = calculator.isIsosceles(isosceles);
@@ -136,7 +126,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isIsoscelesTestShouldReturnFalseWhenNotIsosceles() {
+    public void testIsIsoscelesShouldReturnFalseWhenNotIsosceles() {
         //given
         //when
         boolean actual = calculator.isIsosceles(obtuse);
@@ -145,7 +135,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isRegularTestShouldReturnTrueWhenRegular() {
+    public void testIsRegularShouldReturnTrueWhenRegular() {
         //given
         //when
         boolean actual = calculator.isRegular(regular);
@@ -154,7 +144,7 @@ public class TriangleCalculatorTest {
     }
 
     @Test
-    public void isRegularTestShouldReturnFalseWhenNotRegular() {
+    public void testIsRegularShouldReturnFalseWhenNotRegular() {
         //given
         //when
         boolean actual = calculator.isRegular(rectangular);
