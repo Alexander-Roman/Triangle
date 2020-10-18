@@ -2,7 +2,9 @@ package com.epam.triangle.data;
 
 import com.epam.triangle.exception.DataException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

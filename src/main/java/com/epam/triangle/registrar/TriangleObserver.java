@@ -1,6 +1,6 @@
 package com.epam.triangle.registrar;
 
-import com.epam.triangle.entity.TriangleParameterSet;
+import com.epam.triangle.entity.TriangleParameters;
 import com.epam.triangle.entity.TriangleType;
 import com.epam.triangle.logic.TriangleCalculator;
 
@@ -12,17 +12,25 @@ public class TriangleObserver implements Observer {
 
     private static final TriangleObserver INSTANCE = new TriangleObserver();
 
-    private final Map<Long, TriangleParameterSet> parameters = new HashMap<Long, TriangleParameterSet>();
-    private final TriangleCalculator calculator = new TriangleCalculator();
+    private final Map<Long, TriangleParameters> parameters;
+    private final TriangleCalculator calculator;
 
     private TriangleObserver() {
+        parameters = new HashMap<Long, TriangleParameters>();
+        calculator = new TriangleCalculator();
+    }
+
+    /* package-private for testing */
+    TriangleObserver(TriangleCalculator calculator) {
+        parameters = new HashMap<Long, TriangleParameters>();
+        this.calculator = calculator;
     }
 
     public static TriangleObserver getInstance() {
         return INSTANCE;
     }
 
-    public TriangleParameterSet getParameterSet(TriangleObservable triangleObservable) {
+    public TriangleParameters getParameters(TriangleObservable triangleObservable) {
         Long id = triangleObservable.getId();
         return parameters.get(id);
     }
@@ -35,7 +43,7 @@ public class TriangleObserver implements Observer {
         List<Double> sides = calculator.getAllSides(triangleObservable);
         TriangleType triangleType = calculator.getType(triangleObservable);
 
-        TriangleParameterSet parameterSet = new TriangleParameterSet(perimeter, area, angles, sides, triangleType);
+        TriangleParameters parameterSet = new TriangleParameters(perimeter, area, angles, sides, triangleType);
         Long id = triangleObservable.getId();
         parameters.put(id, parameterSet);
     }

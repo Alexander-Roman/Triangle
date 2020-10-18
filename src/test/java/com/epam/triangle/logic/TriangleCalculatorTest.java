@@ -16,30 +16,25 @@ public class TriangleCalculatorTest {
 
     @BeforeClass
     public void setUp() {
-        {
-            Point a = new Point(-10.0, -20.0);
-            Point b = new Point(40.0, 66.603);
-            Point c = new Point(90.0, -20.0);
-            regular = new Triangle(a, b, c);
-        }
-        {
-            Point a = new Point(-17.355, 35.355);
-            Point b = new Point(18.0, 0.0);
-            Point c = new Point(-17.355, -35.355);
-            rectangular = new Triangle(a, b, c);
-        }
-        {
-            Point a = new Point(16.0, -19.0);
-            Point b = new Point(85.0, -29.0);
-            Point c = new Point(120.0, -75.0);
-            obtuse = new Triangle(a, b, c);
-        }
-        {
-            Point a = new Point(37.397, 62.418);
-            Point b = new Point(53.56, -73.361);
-            Point c = new Point(-95.835, 31.659);
-            isosceles = new Triangle(a, b, c);
-        }
+        Point a = new Point(-10.0, -20.0);
+        Point b = new Point(40.0, 66.603);
+        Point c = new Point(90.0, -20.0);
+        regular = new Triangle(a, b, c);
+
+        a = new Point(-17.355, 35.355);
+        b = new Point(18.0, 0.0);
+        c = new Point(-17.355, -35.355);
+        rectangular = new Triangle(a, b, c);
+
+        a = new Point(16.0, -19.0);
+        b = new Point(85.0, -29.0);
+        c = new Point(120.0, -75.0);
+        obtuse = new Triangle(a, b, c);
+
+        a = new Point(37.397, 62.418);
+        b = new Point(53.56, -73.361);
+        c = new Point(-95.835, 31.659);
+        isosceles = new Triangle(a, b, c);
     }
 
     @Test

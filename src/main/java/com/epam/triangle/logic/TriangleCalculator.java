@@ -100,12 +100,26 @@ public class TriangleCalculator {
         return Arrays.asList(angleA, angleB, angleC);
     }
 
-    public List<Point> getAllTops(Triangle triangle) {
+    public double minX(Triangle triangle) {
         Point a = triangle.getA();
         Point b = triangle.getB();
         Point c = triangle.getC();
+        double aPointX = a.getX();
+        double bPointX = b.getX();
+        double cPointX = c.getX();
+        double minX = Math.min(aPointX, bPointX);
+        return Math.min(minX, cPointX);
+    }
 
-        return Arrays.asList(a, b, c);
+    public double minY(Triangle triangle) {
+        Point a = triangle.getA();
+        Point b = triangle.getB();
+        Point c = triangle.getC();
+        double aPointY = a.getY();
+        double bPointY = b.getY();
+        double cPointY = c.getY();
+        double minY = Math.min(aPointY, bPointY);
+        return Math.min(minY, cPointY);
     }
 
     public TriangleType getType(Triangle triangle) {

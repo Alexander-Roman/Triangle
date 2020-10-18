@@ -10,12 +10,12 @@ import java.util.Set;
 public class TriangleObservable extends Triangle implements Observable {
 
     private final long id;
-    private final Set<Observer> observers = new HashSet<Observer>();
+    private final Set<Observer> observers;
 
     public TriangleObservable(Point a, Point b, Point c, long id) {
         super(a, b, c);
         this.id = id;
-        notifyObservers();
+        observers = new HashSet<Observer>();
     }
 
     public long getId() {

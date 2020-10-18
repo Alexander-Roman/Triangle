@@ -1,10 +1,18 @@
 package com.epam.triangle.logic.validator;
 
 import com.epam.triangle.entity.Point;
+import com.epam.triangle.entity.Triangle;
 
 public class TriangleValidator {
 
-    public boolean isOneStraightLine(Point a, Point b, Point c) {
+    public boolean isTriangle(Triangle triangle) {
+        Point a = triangle.getA();
+        Point b = triangle.getB();
+        Point c = triangle.getC();
+        return !isOneStraightLine(a, b, c);
+    }
+
+    private boolean isOneStraightLine(Point a, Point b, Point c) {
         /*
          * Equation of a straight line passing through two points:
          * (x - x1) / (x2 - x1) == (y - y1) / (y2 - y1)

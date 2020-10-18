@@ -5,11 +5,19 @@ import com.epam.triangle.logic.TriangleCalculator;
 
 public class LargerAngleRangeSpecification implements TriangleSpecification {
 
-    private final TriangleCalculator calculator = new TriangleCalculator();
+    private final TriangleCalculator calculator;
     private final double minLargerAngle;
     private final double maxLargerAngle;
 
     public LargerAngleRangeSpecification(double minLargerAngle, double maxLargerAngle) {
+        this.minLargerAngle = minLargerAngle;
+        this.maxLargerAngle = maxLargerAngle;
+        calculator = new TriangleCalculator();
+    }
+
+    /* package-private for testing */
+    LargerAngleRangeSpecification(TriangleCalculator calculator, double minLargerAngle, double maxLargerAngle) {
+        this.calculator = calculator;
         this.minLargerAngle = minLargerAngle;
         this.maxLargerAngle = maxLargerAngle;
     }

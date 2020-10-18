@@ -2,14 +2,10 @@ package com.epam.triangle.logic;
 
 import com.epam.triangle.entity.Point;
 import com.epam.triangle.entity.Triangle;
-import com.epam.triangle.logic.parser.DataParser;
-import com.epam.triangle.logic.validator.DataValidator;
 import com.epam.triangle.logic.validator.TriangleValidator;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,58 +19,31 @@ public class TriangleCreator {
     private final static int X_OF_C_INDEX = 4;
     private final static int Y_OF_C_INDEX = 5;
 
-    private final DataParser parser;
-    private final DataValidator dataValidator;
-    private final TriangleValidator triangleValidator;
+    private final TriangleValidator validator;
 
-    public TriangleCreator(DataParser parser, DataValidator dataValidator, TriangleValidator triangleValidator) {
-        this.parser = parser;
-        this.dataValidator = dataValidator;
-        this.triangleValidator = triangleValidator;
+    public TriangleCreator(TriangleValidator validator) {
+        this.validator = validator;
     }
 
-    public List<Triangle> create(List<String> data) {
-        List<String> validated = validateData(data);
-        List<Triangle> triangles = new ArrayList<Triangle>();
-        for (String line : validated) {
-            Optional<Triangle> parsed = parseTriangle(line);
-            if (parsed.isPresent()) {
-                Triangle triangle = parsed.get();
-                triangles.add(triangle);
-            }
-        }
-        return triangles;
-    }
+    public Optional<Triangle> create(List<Double> values) {
 
-    private List<String> validateData(List<String> data) {
-        List<String> validated = new ArrayList<String>();
-        for (String line : data) {
-            if (dataValidator.isValid(line)) {
-                validated.add(line);
-            } else {
-                LOGGER.log(Level.ERROR, "Data invalid line: " + line);
-            }
-        }
-        return validated;
-    }
+        double aPointX = values.get(X_OF_A_INDEX);
+        double aPointY = values.get(Y_OF_A_INDEX);
+        Point a = new Point(aPointX, aPointY);
 
-    private Optional<Triangle> parseTriangle(String line) {
-        Triangle triangle = null;
-        List<Double> values = parser.parse(line);
-        Point a = new Point(
-                values.get(X_OF_A_INDEX),
-                values.get(Y_OF_A_INDEX));
-        Point b = new Point(
-                values.get(X_OF_B_INDEX),
-                values.get(Y_OF_B_INDEX));
-        Point c = new Point(
-                values.get(X_OF_C_INDEX),
-                values.get(Y_OF_C_INDEX));
+        double bPointX = values.get(X_OF_B_INDEX);
+        double bPointY = values.get(Y_OF_B_INDEX);
+        Point b = new Point(bPointX, bPointY);
 
-        if (triangleValidator.isOneStraightLine(a, b, c)) {
-            LOGGER.log(Level.ERROR, "Not a triangle in data line: " + line);
-        } else {
-            triangle = new Triangle(a, b, c);
+        double cPointX = values.get(X_OF_C_INDEX);
+        double cPointY = values.get(Y_OF_C_INDEX);
+        Point c = new Point(cPointX, cPointY);
+
+        Triangle triangle = new Triangle(a, b, c);
+
+        if (!validator.isTriangle(triangle)) {
+            triangle = null;
+            LOGGER.warn("Not a triangle values: " + values);
         }
 
         return Optional.ofNullable(triangle);

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public final class TriangleParameterSet {
+public final class TriangleParameters {
 
     private final double perimeter;
     private final double area;
@@ -12,7 +12,7 @@ public final class TriangleParameterSet {
     private final List<Double> sides;
     private final TriangleType triangleType;
 
-    public TriangleParameterSet(double perimeter, double area, List<Double> angles, List<Double> sides, TriangleType triangleType) {
+    public TriangleParameters(double perimeter, double area, List<Double> angles, List<Double> sides, TriangleType triangleType) {
         this.perimeter = perimeter;
         this.area = area;
         this.angles = angles;
@@ -48,7 +48,7 @@ public final class TriangleParameterSet {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TriangleParameterSet that = (TriangleParameterSet) o;
+        TriangleParameters that = (TriangleParameters) o;
         return Double.compare(that.perimeter, perimeter) == 0 &&
                 Double.compare(that.area, area) == 0 &&
                 Objects.equals(angles, that.angles) &&
