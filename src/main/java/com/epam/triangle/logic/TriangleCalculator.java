@@ -133,8 +133,12 @@ public class TriangleCalculator {
     }
 
     private double getSide(Point from, Point to) {
-        double middleX = to.getX() - from.getX();
-        double middleY = to.getY() - from.getY();
+        double fromX = from.getX();
+        double fromY = from.getY();
+        double toX = to.getX();
+        double toY = to.getY();
+        double middleX = toX - fromX;
+        double middleY = toY - fromY;
         return Math.hypot(middleX, middleY);
     }
 
